@@ -72,6 +72,8 @@ nodoPassword.addEventListener("blur", validarPassword);
 nodoEmail.addEventListener("focus", limpiar);
 nodoPassword.addEventListener("focus", limpiar);
 
+const botonesModificarTratamineto = document.querySelectorAll(".btn-primary");
+console.log(botonesModificarTratamineto)
 
 function validarDatos(e){
   e.preventDefault();
