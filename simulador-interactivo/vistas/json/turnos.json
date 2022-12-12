@@ -1,0 +1,35 @@
+[
+    {       
+    "id":0,
+    "responsable": "Lisandro",
+    "paciente": "Zaira",
+    "tratamiento": "fisioterapia",
+    "fecha": "16/11/2022"  
+    },
+
+    {     
+        "id":1,
+        "responsable": "Florencia",
+        "paciente": "Negra",
+        "tratamiento": "Lampara",
+        "fecha": "17/11/2022"      
+    },
+    {       
+    "id":2,
+    "responsable": "Omar",
+    "paciente": "Aime",
+    "tratamiento": "Psicologa",
+    "fecha": "20/11/2022"  
+    },
+
+    {       
+        "id":3,
+        "responsable": "Facundo",
+        "paciente": "Zara",
+        "tratamiento": "Radioterapia",
+        "fecha": "18/11/2022"      
+    }
+
+
+
+]

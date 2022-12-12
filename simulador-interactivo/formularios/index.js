@@ -1,41 +1,8 @@
-class Responsable {
-  constructor(id, nombre, apellido, mail, telefono, password, paciente) {
-    (this.id = id),
-      (this.nombre = nombre),
-      (this.apellido = apellido),
-      (this.mail = mail),
-      (this.telefono = telefono),
-      (this.password = password);
-    this.paciente = paciente;
-  }
-  definirPasword() {
-    // const nuevoPasword = prompt("ingrese su nueva contraseña")
-    //codigo para que el usuario defina la contraseña
-    this.pasword = nuevoPasword;
-  }
-}
-class Paciente {
-  constructor(id, nombre, especie, sexo, raza, edad) {
-    (this.id = id),
-      (this.nombre = nombre),
-      (this.especie = especie),
-      (this.sexo = sexo),
-      (this.raza = raza),
-      (this.edad = edad);
-  }
-}
-class Turno {
-  constructor(id, responsable, paciente, tratamiento, fecha) {
-    (this.id = id),
-      (this.responsable = responsable),
-      (this.paciente = paciente),
-      (this.tratamiento = tratamiento),
-      (this.fecha = fecha);
-  }
-  cambiarTratamiento(tratamientoNuevo) {
-    this.tratamiento = tratamientoNuevo;
-  }
-}
+const consultarDatos = async () => {
+  const response = await fetch("./json/datos.json");
+  const responsables = await response.json();
+  return responsables;
+};
 const responsableNuevo = [];
 const pacienteNuevo = [];
 // SECCION MENU-PRINCIPAL DONDE VOY AGREGANDO ELEMENTOS AL DOM
@@ -67,7 +34,7 @@ menuPrincipal.innerHTML = `<div id="sectionLogin" class="mostrarFormulario ">
                 type="password"
                 class="form-control"
                 id="password"
-                value="1233"
+                value="1234"
               />
             </div>
           </div>
@@ -242,202 +209,94 @@ formSigin.addEventListener("submit", ingresarForm);
 function ingresarForm(e) {
   e.preventDefault();
   let input = e.target;
-  let datosResponsables = obtenerDatos(); //obtener datos pacientes
 
-  if (e.target.id === "formularioLogin") {
+  if (input.id === "formularioLogin") {
     let emailIngresar = document.querySelector("#emailIngresar");
     let passwordIngresar = document.querySelector("#password");
     let span = input.querySelector("#span");
-    
-        
-    consultarDatos().then(responsable => {
-         
-        let mailValidar = responsable.find((elemento) => elemento.email === emailIngresar.value)
-      
-        console.log(emailIngresar.value)
-        console.log(mailValidar)
-      
-    }) 
-    
-    
 
-    let mailValidar = datosResponsables.find(
-      (responsable) => responsable.mail === emailIngresar.value
-    );
+    consultarDatos().then((responsable) => {
+      let mailValidar = responsable.find(
+        (elemento) => elemento.email === emailIngresar.value
+      );
 
-    if (mailValidar == undefined) {
-      if (span.classList.contains("valid-feedback")) {
+      if (mailValidar == undefined) {
+        if (span.classList.contains("valid-feedback")) {
+          span.classList.replace("valid-feedback", "invalid-feedback");
+          emailIngresar.classList.replace("is-valid", "is-invalid");
+          span.innerHTML =
+            "El mil ingresado no esta registrado en nuestra base de datos";
+        }
+      } else if (mailValidar.password === passwordIngresar.value) {
+        mostrarMenu();
+        seccionLogin.classList.replace(
+          "mostrarFormulario",
+          "ocultarFormulario"
+        );        
+      } else {
         span.classList.replace("valid-feedback", "invalid-feedback");
-        emailIngresar.classList.replace("is-valid", "is-invalid");
+        passwordIngresar.classList.replace("is-valid", "is-invalid");
         span.innerHTML =
-          "El mil ingresado no esta registrado en nuestra base de datos";
+          "La contraseña ingresada no coincide con la registrada en nuestra base de datos";
       }
-    } else if (mailValidar.password === passwordIngresar.value) {
-     /*
-     let menuPrincipalSection = `<div class="row">
-      <div class="col-md-4 mx-auto">
-        <div class="card mt-4 text-center">
-          <div class="card-header">
-            <h1>Bienvenido</h1>
-            <h2>Sistema Gestion de Turnos</h1>
-          </div>
-        <div class="card-body bg-light">  
-      </div>
-    </div>`;
-    
-      let nuevoElemento = document.createElement("section");
-      nuevoElemento.id = "menuRegistrado";
-      nuevoElemento.innerHTML = menuPrincipalSection;
-      menuPrincipal.appendChild(nuevoElemento);
-      */ 
-      let menuPrincipal = obtenerSeccion("menuPrincipal")
-      renderMenu("section", "menuRegistrado", menuPrincipal)
-      seccionLogin.classList.replace("mostrarFormulario", "ocultarFormulario");
-    } else {
-      span.classList.replace("valid-feedback", "invalid-feedback");
-      passwordIngresar.classList.replace("is-valid", "is-invalid");
-      span.innerHTML =
-        "La contraseña ingresada no coincide con la registrada en nuestra base de datos";
-    }
+      console.log(emailIngresar.value);
+      console.log(mailValidar);
+    });
   } else {
     let nombreRegistrar = input.querySelector("#nombreRegistrar");
     let apellidoRegistrar = input.querySelector("#apellido");
     let emailRegistrar = input.querySelector("#emailRegistrar");
     let telefonoRegistrar = input.querySelector("#telefono");
 
-    
-    let mailValidar = datosResponsables.find(
-      (responsable) => responsable.mail === emailRegistrar.value
-    );
-
-    if (mailValidar == undefined) {
-      //Registrar Usuario
-      //console.log("Usuario registrado")
-      /*
-      let seccionSiginPacientes = `<div class="row">
-      <div class="col-md-4 mx-auto">
-        <div class="card mt-4 text-center">
-            <div class="card-header">
-            <h1>Registrarse Paciente</h1>
-          </div>
-          <div class="card-body">
-            <form id="formularioSigninPaciente" action="registrarPaciente" method="get">
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Nombre</label
-                >
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nombrePaciente" />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Edad</label
-                >
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" id="edadPaciente"/>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Raza</label
-                >                    
-                <div class="col-sm-10">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Selecciones Raza</option>
-                        <option value="1">Ovejero</option>
-                        <option value="2">Salchicha</option>
-                        <option value="3">Caniche</option>
-                      </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Especie</label
-                >                    
-                <div class="col-sm-10"> 
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Seleccione Especie</option>
-                        <option value="1">Canino</option>
-                        <option value="2">Felino</option>
-                        <option value="3">No-Tradicional</option>
-                      </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Sexo</label
-                >
-                <div class="col-sm-10">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Seleccione Sexo</option>
-                        <option value="1">Macho</option>
-                        <option value="2">Hembra</option>                            
-                      </select>
-                </div>
-              </div>
-               
-              <button type="submit" class="btn btn-primary" id="btnRgistrarPaciente">Registrar Paciente</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>`;
-      */
-      
-    
-    let seccionSiginPacientes = obtenerSeccion("seccionSiginPacientes")
-    renderMenu("section", "sectionSigninPaciente", seccionSiginPacientes)
-    /*
-    let nuevoElemento = document.createElement("section");
-      nuevoElemento.id = "sectionSigninPaciente";
-      nuevoElemento.innerHTML = seccionSiginPacientes;
-      menuPrincipal.appendChild(nuevoElemento);
-    */  
-    
-      
-      seccionSigin.classList.replace("mostrarFormulario", "ocultarFormulario");
-
-      let registrarPaciente = menuPrincipal.querySelector(
-        "#formularioSigninPaciente"
+    consultarDatos().then((responsable) => {
+      let mailValidar = responsable.find(
+        (elemento) => elemento.email === emailRegistrar.value
       );
-      // EVENTO SUBMIT FORM REGISTRAR PACIENTE
-      registrarPaciente.addEventListener("submit", validarPaciente);
+      
+      if (mailValidar == undefined) {       
+        let seccionSiginPacientes = obtenerSeccion("seccionSiginPacientes");
+        renderMenu("section", "sectionSigninPaciente", seccionSiginPacientes);
 
-      let select = registrarPaciente.querySelectorAll("select");
-      let input = registrarPaciente.querySelectorAll("input");
+        seccionSigin.classList.replace(
+          "mostrarFormulario",
+          "ocultarFormulario"
+        );
 
-      select[0].addEventListener("blur", validarCampoPaciente);
-      select[1].addEventListener("blur", validarCampoPaciente);
-      select[2].addEventListener("blur", validarCampoPaciente);
+        let registrarPaciente = menuPrincipal.querySelector(
+          "#formularioSigninPaciente"
+        );
+        // EVENTO SUBMIT FORM REGISTRAR PACIENTE
+        registrarPaciente.addEventListener("submit", ingresarPaciente);
 
-      input[0].addEventListener("blur", validarCampoPaciente);
-      input[1].addEventListener("blur", validarCampoPaciente);
-      input[0].addEventListener("focus", limpiarCampos);
-      input[1].addEventListener("focus", limpiarCampos);
-    } else {
-      let span = emailRegistrar.parentElement.querySelector("#span");
-      span.classList.replace("valid-feedback", "invalid-feedback");
-      emailRegistrar.classList.replace("is-valid", "is-invalid");
-      span.innerHTML = "El email ingresado ya se encuentra registrado";
-      console.log("El usuiario existe");
-      // 1° ofrecer recuperar contraseña
-    }
-    // guardar referencia nuevo usuario para poder cargarlo con los datos del paiente
-    let nuevoResponsable={
-      nombre:nombreRegistrar.value,
-      apellido:apellidoRegistrar.value,
-      email:emailRegistrar.value,
-      telefono:telefonoRegistrar.value
-    }
-    responsableNuevo.push(nuevoResponsable)
-    console.log(responsableNuevo)
-    //console.log(apellidoRegistrar.value)
-    //console.log(emailRegistrar.value)
-    //console.log(telefonoRegistrar.value)
+        let select = registrarPaciente.querySelectorAll("select");
+        let input = registrarPaciente.querySelectorAll("input");
+
+        select[0].addEventListener("blur", validarCampoPaciente);
+        select[1].addEventListener("blur", validarCampoPaciente);
+        select[2].addEventListener("blur", validarCampoPaciente);
+
+        input[0].addEventListener("blur", validarCampoPaciente);
+        input[1].addEventListener("blur", validarCampoPaciente);
+        input[0].addEventListener("focus", limpiarCampos);
+        input[1].addEventListener("focus", limpiarCampos);
+      } else {
+        let span = emailRegistrar.parentElement.querySelector("#span");
+        span.classList.replace("valid-feedback", "invalid-feedback");
+        emailRegistrar.classList.replace("is-valid", "is-invalid");
+        span.innerHTML = "El email ingresado ya se encuentra registrado";
+        console.log("El usuiario existe");
+        // 1° ofrecer recuperar contraseña
+      }
+    });    
+    let nuevoResponsable = {
+      nombre: nombreRegistrar.value,
+      apellido: apellidoRegistrar.value,
+      email: emailRegistrar.value,  
+      telefono: telefonoRegistrar.value,
+    };
+    //Registrar Usuario
+    responsableNuevo.push(nuevoResponsable);    
   }
-  
-  
 }
 function validarCampoPaciente(e) {
   let input = e.target;
@@ -491,47 +350,92 @@ function validarCampoPaciente(e) {
   }
 }
 //FUNCION PARA VALIDAR Y REGISTRAR PACIENTE
-function validarPaciente(e) {
+function ingresarPaciente(e) {
   e.preventDefault();
-  let menuPrincipal = obtenerSeccion("menuPrincipal")
-  renderMenu("section", "menuRegistrado", menuPrincipal)
-  let seccionRegistrarPaciente = document.querySelector("#sectionSigninPaciente") 
-  seccionRegistrarPaciente.classList.add("ocultarFormulario");
-
-  // AGREGAR Y CONFIRMAR EL REGISTRO A LA BD
-  let registrarPaciente = document.querySelector(
-    "#formularioSigninPaciente")
+  mostrarMenu()
+  let seccionRegistrarPaciente = document.querySelector(
+    "#sectionSigninPaciente"
+  );
+  /* DATOS DEL FORMNULARIO SIGIN PACIENTE
+   let registrarPaciente = document.querySelector("#formularioSigninPaciente");
   let select = registrarPaciente.querySelectorAll("select");
   let input = registrarPaciente.querySelectorAll("input");
+
+  let nombrePaciente = input[0].value;
+  let edadPaciente = input[1].value;
   
-  let nombrePaciente = input[0].value
-  let edadPaciente = input[1].value
-  let raza = select[0].selectedIndex
-  let especie = select[1].selectedIndex
-  let sexo = select[2].selectedIndex
+  let raza = select[0].selectedIndex;
+  let especie = select[1].selectedIndex;
+  let sexo = select[2].selectedIndex;
+
+  let nuevoPaciente = {
+    nombre: nombrePaciente,
+    edad: edadPaciente,
+    raza: raza,
+    especie: especie,
+    sexo: sexo,
+  };
+
   
-  let nuevoPaciente={
-    nombre:nombrePaciente,
-    edad:edadPaciente,
-    raza:raza,
-    especie:especie,
-    sexo:sexo,
-  }
-  pacienteNuevo.push(nuevoPaciente)
-  console.log(pacienteNuevo)
-  console.log(responsableNuevo)
-  
-  consultarDatos().then(responsable => {
-    console.log(responsable)
-  })  
-  //console.log(edadPaciente)
-  //console.log(raza)
-  //console.log(especie)
-  //console.log(sexo)
-  
+
+  pacienteNuevo.push(nuevoPaciente);
   console.log("agregar paciente a la bd ");
-  //console.log(e.target);
-  //console.log(seccionRegistrarPaciente);
+  console.log(pacienteNuevo);
+  console.log(responsableNuevo);
+  */
+  
+  seccionRegistrarPaciente.classList.add("ocultarFormulario"); 
+  
+  //let seccionBuscarPaciente = obtenerSeccion("buscarPacientes")
+  //renderMenu("section", "buscarPacientes", seccionBuscarPaciente)
+  // agregar datos para la busqueda  
+  
+}
+function mostrarMenu(){
+  let menuPrincipal = obtenerSeccion("menuPrincipal");
+  renderMenu("section", "menuRegistrado", menuPrincipal);  
+  let btnPacientes = document.getElementById("btnPacientes")  
+  btnPacientes.addEventListener('click', mostrarOpcion)
+}
+function mostrarOpcion (e){
+  let sectionBuscarPaciente = document.getElementById("buscarPacientes")
+    console.log(sectionBuscarPaciente)
+  
+  if(e.target.id === "btnPacientes"){
+    let sectionBuscarPaciente = document.getElementById("buscarPacientes")
+    //console.log(sectionBuscarPaciente)
+    if(sectionBuscarPaciente == null){
+      let seccionBuscarPaciente = obtenerSeccion("buscarPacientes")
+      renderMenu("section", "buscarPacientes", seccionBuscarPaciente)
+    }
+    let headLista = document.getElementById("headLista")
+    let bodyLista = document.getElementById("bodyLista")
+    let responsablesBackup = []  
+    
+    consultarDatos().then((responsable) => {
+      responsable.forEach((element) => {
+        bodyLista.innerHTML += `<tr id="${element.id}">
+        <th scope="row">${element.id}</th>
+        <td>${element.nombre}</td>
+        <td>${element.apellido}</td>
+        <td>${element.email}</td> 
+        <td>${element.telefono}</td>     
+        <td><button id="btnEditar${element.id}" type="button" class="btn btn-outline-primary">Pacientes</button></td>
+        <td><button id="btnDeleted${element.id}"type="button" class="btn btn-outline-primary">Pacientes</button></td>
+        </tr>`
+            
+      });
+    });
+    
+    
+    
+    
+   
+  }// continuas con el else y programar el siguiente boton
+}
+function resultadoBusqueda(e){
+  e.preventDefault()
+  console.log(e.target)
 }
 //FUNCION PARA EL FOCUS PARA LIMPIAR LAS CLASES
 function limpiarCampos(e) {
@@ -547,7 +451,7 @@ function limpiarCampos(e) {
     nodoPadre.appendChild(span);
   } else {
     input.classList.remove("is-valid", "is-invalid");
-    //span.classList.remove("valid-feedback", "invalid-feedback");
+    span.classList.remove("valid-feedback", "invalid-feedback");
     span.innerHTML = "";
   }
 }
@@ -582,7 +486,7 @@ function validarCampo(e) {
     }
     input.classList.add("is-valid");
   } else if (input.type === "password") {
-    limpiarCampos
+    limpiarCampos;
     let passworIngresado = input.value;
     if (
       passworIngresado.length < 4 ||
@@ -670,164 +574,29 @@ function cambiarFormulario(e) {
     }
   }
 }
-// FUNCIONES PARA OBTENER LOS DATOS DE LOS PACIENTES RESPONSABLES Y TURNOS
-function obtenerDatosTurnos2() {
-  const turno0 = new Turno(
-    0,
-    "Lisandro",
-    "Zaira",
-    "fisioterapia",
-    "15/11/2022"
-  );
-  const turno1 = new Turno(1, "Florencia", "Emir", "Lampara", "16/11/2022");
-  const turno2 = new Turno(2, "Julian", "Zafiro", "Masajes", "17/11/2022");
-  const turno3 = new Turno(
-    3,
-    "Leandro",
-    "egra",
-    "RadioFrecuencia",
-    "18/11/2022"
-  );
-  const turno4 = new Turno(
-    4,
-    "Josefina",
-    "Argentina",
-    "fisioterapia",
-    "18/11/2022"
-  );
-  const turno5 = new Turno(5, "Fausto", "Zaira", "fisioterapia", "18/11/2022");
-  const turno6 = new Turno(
-    6,
-    "Evangelina",
-    "Zaira",
-    "fisioterapia",
-    "16/11/2022"
-  );
-
-  const turnos = [turno0, turno1, turno2, turno3, turno4, turno5, turno6];
-
-  return turnos;
-}
-function obtenerDatos() {
-  const paciente0 = new Paciente(0, "Dalma", "canino", "hembra", "dalmata", 7);
-  const paciente1 = new Paciente(1, "Pedro", "felino", "macho", "siames", 3);
-  const paciente2 = new Paciente(
-    2,
-    "Zaira",
-    "felino",
-    "hembra",
-    "callejero",
-    8
-  );
-  const paciente3 = new Paciente(3, "Emir", "canino", "macho", "Ovejero", 12);
-  const paciente4 = new Paciente(4, "Zara", "felino", "hembra", "cocker", 3);
-  const paciente5 = new Paciente(
-    5,
-    "cerdito",
-    "no-tradicional",
-    "macho",
-    "siames",
-    8
-  );
-  const paciente6 = new Paciente(
-    6,
-    "conejito",
-    "no-tradicional",
-    "hembra",
-    "callejero",
-    1
-  );
-
-  const responsable0 = new Responsable(
-    0,
-    "Lisandro",
-    "Baldoma",
-    "baldomalisandro@hotmail.com",
-    "3416864621",
-    "1234",
-    paciente0
-  );
-  const responsable1 = new Responsable(
-    1,
-    "Florencia",
-    "Tiberti",
-    "flortiberti@hotmail.com",
-    "3415678578",
-    "1234",
-    paciente1
-  );
-  const responsable2 = new Responsable(
-    2,
-    "Andres",
-    "alonzo",
-    "baldomalisandro@hotmail.com",
-    "3416864621",
-    "1234",
-    paciente2
-  );
-  const responsable3 = new Responsable(
-    3,
-    "Julieta",
-    "messi",
-    "flortiberti@hotmail.com",
-    "3415678578",
-    "1234",
-    paciente3
-  );
-  const responsable4 = new Responsable(
-    4,
-    "Leandro",
-    "paredes",
-    "baldomalisandro@hotmail.com",
-    "3416864621",
-    "1234",
-    paciente4
-  );
-  const responsable5 = new Responsable(
-    5,
-    "pedro",
-    "tiburon",
-    "flortiberti@hotmail.com",
-    "3415678578",
-    "1234",
-    paciente5
-  );
-  const responsable6 = new Responsable(
-    6,
-    "Julian",
-    "lopez",
-    "flortiberti@hotmail.com",
-    "3415678578",
-    "1234",
-    paciente6
-  );
-  const datos = [
-    responsable0,
-    responsable1,
-    responsable2,
-    responsable3,
-    responsable4,
-    responsable5,
-    responsable6,
-  ];
-
-  return datos;
-}
-function obtenerSeccion(opcion){
-  if(opcion === "menuPrincipal"){
-    
+function obtenerSeccion(opcion) {
+  if (opcion === "menuPrincipal") {
     menuPrincipalSection = `<div class="row">
     <div class="col-md-4 mx-auto">
       <div class="card mt-4 text-center">
         <div class="card-header">
           <h1>Bienvenido</h1>
-          <h2>Sistema Gestion de Turnos</h1>
+          <h2>Sistema Gestion de Turnos</h2>
         </div>
-      <div class="card-body bg-light">  
+        <div class="card-body bg-light">
+          <div class="container">
+            <div class="row">
+              <button id="btnPacientes" type="button" class="btn btn-outline-primary">Pacientes</button>
+              <button id="btnResponsables" type="button" class="btn btn-outline-primary">Responsables</button>
+              <button id="btnConsultarTurnos" type="button" class="btn btn-outline-primary">Consultar Turnos</button>
+              <button id="btnSolicitarTurno" type="button" class="btn btn-outline-primary">Solicitar turno</button>
+            </div>                  
+          </div>
+      </div>
     </div>
   </div>`;
-  return menuPrincipalSection
-  }else if(opcion === "seccionSiginPacientes"){
+    return menuPrincipalSection;
+  } else if (opcion === "seccionSiginPacientes") {
     seccionSiginPacientes = `<div class="row">
       <div class="col-md-4 mx-auto">
         <div class="card mt-4 text-center">
@@ -897,31 +666,57 @@ function obtenerSeccion(opcion){
         </div>
       </div>
     </div>`;
-    return seccionSiginPacientes
-  } 
-
-}
-function renderMenu(tipoSeccion, nombreSeccion, innerSeccion){
-  let nuevoElemento = document.createElement(tipoSeccion);
-      nuevoElemento.id = nombreSeccion;
-      nuevoElemento.innerHTML = innerSeccion;
-      menuPrincipal.appendChild(nuevoElemento);
-      
-}
-const consultarDatos = async () =>{
-  const response = await fetch("./json/datos.json")
-  const responsables = await response.json()
-  return responsables
+    return seccionSiginPacientes;
+  }else if (opcion === "buscarPacientes") {
+    seccionBuscarPaciente = `<div class="row">
+            <div class="col-md-4 mx-auto">
+              <div class="card mt-4 text-center">
+                <div class="card-header">
+                  <h1>Buscador</h1>
+                  <h2>Pacientes</h2>
+                </div>
+                <div class="card-body bg-light">
+                  <div class="container">
+                    <div class="row">
+                      <nav class="navbar navbar-light bg-light">
+                        <div class="container-fluid">
+                          <form id="formBuscador"class="d-flex">
+                            <input id="inputBuscarPaciente" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                          </form>
+                        </div>
+                      </nav>
+                    </div>
+                    <div class="row table-responsive">
+                      <table class="table">
+                        <thead id="headLista">
+                        <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Accion</th>
+                        <th scope="col">Accion</th>
+                      </tr>
+                        </thead>
+                        <tbody id="bodyLista" >
+                                                                          
+                        </tbody>
+                      </table>
+                    </div>                
+                  </div>
+              </div>
+            </div>
+          </div>`
+    return seccionBuscarPaciente
   }
-  
-  /*
-  consultarDatos().then(responsable => {
-    console.log(responsable)
-  })
-  
-  */
 
-  
-
-  
+}
+function renderMenu(tipoSeccion, nombreSeccion, innerSeccion) {
+  let nuevoElemento = document.createElement(tipoSeccion);
+  nuevoElemento.id = nombreSeccion;
+  nuevoElemento.innerHTML = innerSeccion;
+  menuPrincipal.appendChild(nuevoElemento);
+}
 

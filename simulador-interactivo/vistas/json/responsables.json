@@ -1,0 +1,98 @@
+[
+    {
+        "id": 0,
+        "nombre": "Lisandro" ,
+        "apellido": "Baldoma",
+        "email": "baldomalisandro@hotmail.com",
+        "telefono": 3416864621,
+        "password": "1234",
+        "paciente": {
+            "id": 0,
+            "nombre": "Emir",
+            "edad": 12,
+            "raza": "Ovejero",
+            "especie": "Canino" ,
+            "sexo": "Macho"
+        }
+    },
+    {
+        "id": 1,
+        "nombre": "Florencia" ,
+        "apellido": "Tiberti",
+        "email": "flortiberti@hotmail.com",
+        "telefono": 341456758,
+        "password": "1234",
+        "paciente": {
+            "id": 1,
+            "nombre": "Zaira",
+            "edad": 4,
+            "raza": "Callejero",
+            "especie": "Canino" ,
+            "sexo": "Hembra"
+        }
+    },
+    {
+        "id": 2,
+        "nombre": "Facundo" ,
+        "apellido": "Caceres",
+        "email": "facundocaceres@hotmail.com",
+        "telefono": 3416687654,
+        "password": "1234",
+        "paciente": {
+            "id": 2,
+            "nombre": "Negra",
+            "edad": 10,
+            "raza": "Cocker",
+            "especie": "Canino" ,
+            "sexo": "Hembra"
+        }
+    },
+    {
+        "id": 3,
+        "nombre": "Lisandro" ,
+        "apellido": "Baldoma",
+        "email": "baldomalisandro@hotmail.com",
+        "telefono": 3416864621,
+        "password": "1234",
+        "paciente": {
+            "id": 3,
+            "nombre": "Emir",
+            "edad": 12,
+            "raza": "Ovejero",
+            "especie": "Canino" ,
+            "sexo": "Macho"
+        }
+    },
+    {
+        "id": 4,
+        "nombre": "Florencia" ,
+        "apellido": "Tiberti",
+        "email": "flortiberti@hotmail.com",
+        "telefono": 341456758,
+        "password": "1234",
+        "paciente": {
+            "id": 4,
+            "nombre": "Zaira",
+            "edad": 4,
+            "raza": "Callejero",
+            "especie": "Canino" ,
+            "sexo": "Hembra"
+        }
+    },
+    {
+        "id": 5,
+        "nombre": "Facundo" ,
+        "apellido": "Caceres",
+        "email": "facundocaceres@hotmail.com",
+        "telefono": 3416687654,
+        "password": "1234",
+        "paciente": {
+            "id": 5,
+            "nombre": "Negra",
+            "edad": 10,
+            "raza": "Cocker",
+            "especie": "Canino" ,
+            "sexo": "Hembra"
+        }
+    }
+]
