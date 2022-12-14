@@ -470,7 +470,7 @@ function validarCampo(e) {
     nodoSpan.innerHTML = "";
   }
   if (input.type === "email") {
-    let patronEmail = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim;
+     let patronEmail = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim;
     if (!patronEmail.test(input.value)) {
       if (input.classList.contains("form-control")) {
         input.classList.add("is-invalid");

@@ -4,7 +4,7 @@
     "responsable": "Lisandro",
     "paciente": "Zaira",
     "tratamiento": "fisioterapia",
-    "fecha": "16/11/2022"  
+    "fecha": "2022-12-12"  
     },
 
     {     
@@ -12,14 +12,14 @@
         "responsable": "Florencia",
         "paciente": "Negra",
         "tratamiento": "Lampara",
-        "fecha": "17/11/2022"      
+        "fecha": "2022-12-12"      
     },
     {       
     "id":2,
     "responsable": "Omar",
     "paciente": "Aime",
     "tratamiento": "Psicologa",
-    "fecha": "20/11/2022"  
+    "fecha": "2022-12-12"  
     },
 
     {       
@@ -27,7 +27,7 @@
         "responsable": "Facundo",
         "paciente": "Zara",
         "tratamiento": "Radioterapia",
-        "fecha": "18/11/2022"      
+        "fecha": "2022-12-12"      
     }
 
 
