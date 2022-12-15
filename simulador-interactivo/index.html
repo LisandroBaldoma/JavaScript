@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/styles.css">
+    <title>Gestion de turnos</title>
+  </head>
+  
+  <body>
+    <div id="app" class="container-fluid text-center">
+      <div  class="row card bg-titulo">
+        <h1 class="">SISTEMA DE GESTION DE TURNOS</h1>
+      </div>
+      <div id="subtitulo" class="row card text-center bg-titulo ">
+        <h2>Veterinaria</h2>
+      </div>        
+      </div>
+      <div id="datosLoginUsuario" class="row card text-center bg-titulo " hidden>
+        
+        <h4>nombre apellido</h4>
+      </div>
+    </div>
+    <section id="Login" class="container-fluid text-center" hidden>
+
+      <div class="card bg-light">
+        <div class="card-body">
+          <form id="formLogin" class="col-4 needs-validationjus container-fluid text-center" action="" method="get" novalidate>       
+        
+            <div class="col-4 input-group mb-3">              
+              <input type="email" class="form-control" id="emailLogin" value="" placeholder="Ingrese su Email" required>
+              <div id="spanUsuarioValid"class="valid-feedback">
+                Email correcto
+              </div>
+              <div id="spanUsuario" class="invalid-feedback">
+                Email no se encuentra registrado en nuestra base de datos
+              </div>
+            </div>
+            <div class="col-4 input-group mb-3">
+              
+              <input type="password" class="form-control" id="passwordLogin" placeholder="Contraseña" required>
+              <div class="valid-feedback">
+                cumple con las normas establecidas
+              </div>
+              <div id="spanPassword" class="invalid-feedback">
+                Contraseña incorrecta
+              </div>
+            </div>        
+            <div class="col-4 input-group mb-3">
+              <div  class="form-check">
+                <input id="checkRecordarUsuario" class="form-check-input" type="checkbox" >
+                <label class="form-check-label" for="invalidCheck">
+                  Recordarme
+                </label>                
+              </div>
+            </div> 
+          
+          <div class="col-4 input-group mb-3">
+            <button id="btnIngresar" class="btn btn-primary" type="submit">Ingresar</button>
+          </div>
+           
+          
+        </form>
+        </div>
+      </div>
+      
+      
+
+    </section>
+
+    <section id="contenedorMenuApp" class="container-fluid text-center" hidden>
+      <div class="row align-items-center">
+        <div class="col-4">
+          <div class="row gap-2">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Solicitar Turno</h5>
+                <div class="input-group mb-3">
+                  
+                  <input
+                    id="nuevoNombre"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese Nombre"
+                    required                    
+                  /> 
+                  <div id="nombreNuevo" class="invalid-feedback">
+                    El campo nombre no debe estar vacio
+                  </div>                 
+                </div>
+               
+                <div class="input-group mb-3">
+                  
+                  <input
+                    id="nuevaFecha"
+                    type="date"
+                    class="form-control"
+                    placeholder="Fecha Turno"
+                    required                    
+                  />
+                  <div id="fechaNueva" class="invalid-feedback">
+                    Selecciones una fecha.
+                  </div>
+                </div>
+                
+                <div class="input-group mb-3">
+                  
+                  <select id="selectTratamientos" class="form-select" aria-label="Default select example" required>
+                    <option selected>Seleccione un Tratamiento</option>
+                  </select>
+                  <div id="tratamientoNuevo" class="invalid-feedback">
+                    Seleccione un tratamiento.
+                  </div>
+                </div>
+                <div class="input-group mb-3 justify-content-center gap-1 border-bottom">
+                  <input id="btnAsignarTurno" class="btn btn-primary" type="button" value="Asignar" />
+                  <input id="limpiarCampos" class="btn btn-danger" type="button" value="Limpiar" />
+                </div>
+                
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Buscar Pacientes</h5>
+                <div class="input-group input-group-sm mb-3">
+                  <input
+                    id="nombreBuscar"
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre Paciente"
+                  />
+                  <input id="buscarResponsable" class="btn btn-primary" type="button" value="Buscar"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="datosTurnos" class="col-8">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <div>
+                <h2>Agenda</h2>
+              </div>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Tratamiento</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody id="bodyTurnos">
+              
+            </tbody>
+            
+          </table>
+        </div>
+        <div id="datosPacientes" class="container-fluid col-8" hidden>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <div>
+                <h2>Datos Pacientes</h2>
+              </div>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Raza</th>
+                <th scope="col">Especie</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody id="bodyResponsables">
+            </div>
+            </tbody>
+          </table>
+        </div>
+        </div>
+        <div
+        id="modalTurnos"
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Turno</h5>
+                <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close">
+                </button>
+              </div>
+          <div class="modal-body">
+            <form id="formEditTurno">
+              <div class="input-group mb-3">
+                <span class="input-group-text">Paciente</span>
+                <input id="nombrePaciente"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nombre Paciente"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Fecha</span>
+                <input id="fechaTurno"
+                  type="date"
+                  class="form-control"
+                  placeholder="Recipient's username"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" 
+                  >Tratamiento</span
+                >
+                <input id="tratamientoTurno"
+                  type="text"
+                  class="form-control"
+                  placeholder="Tipo Tratamiento"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                    <button id="guardarEditar" type="button" class="btn btn-primary">Guardar</button>
+                  </div>
+                </div>         
+            </form>
+          </div>          
+      </div>
+    </div>
+    <div
+      id="modalResponsables"
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"      
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Paciente</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="formEditTurnoResponsable">
+              <div class="input-group mb-3">
+                <span class="input-group-text" >Paciente</span>
+                <input id="nombrePacienteEditar"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nombre Paciente"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Raza</span>
+                <input id="razaPaciente"
+                  type="text"
+                  class="form-control"
+                  placeholder="Apellido Responsable"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Especie</span>
+                <input id="EspeciePaciente"
+                  type="text"
+                  class="form-control"
+                  placeholder="Email Responsable"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>              
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                    <button id="guardarEditarRespon" type="button" class="btn btn-primary">Guardar</button>
+                  </div>
+                </div>     
+            </form>
+          </div>          
+      </div>
+    </div>
+        
+    </div>
+      </div>
+    </section>   
+  </div>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.1.1/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
+  </body>
+</html>

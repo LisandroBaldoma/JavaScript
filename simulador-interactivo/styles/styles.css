@@ -1,0 +1,28 @@
+.bg-titulo{
+    background-color: #9f83ce;
+}
+
+.bg-titulo h1{
+    color: rgb(68, 58, 58);
+}
+
+.btn{
+    background-color: #9f83ce;
+    border-color: #9f83ce;
+    color: black;
+}
+.btn:hover {
+    background-color: #9f83ce;
+    border-color: #9f83ce;
+    color: black;
+}
+.btn:disabled{
+    background-color: #9f83ce;
+    border-color: #9f83ce;
+    color: black;
+}
+.btn:active{
+    background-color: #9f83ce;
+    border-color: #9f83ce;
+    color: black;
+}
