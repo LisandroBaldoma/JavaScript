@@ -56,7 +56,7 @@
         "password": "1234",
         "paciente": {
             "id": 3,
-            "nombre": "Emir",
+            "nombre": "Sandro",
             "edad": 12,
             "raza": "Ovejero",
             "especie": "Canino" ,
@@ -72,10 +72,10 @@
         "password": "1234",
         "paciente": {
             "id": 4,
-            "nombre": "Zaira",
+            "nombre": "Wanda",
             "edad": 4,
             "raza": "Callejero",
-            "especie": "Canino" ,
+            "especie": "Felino" ,
             "sexo": "Hembra"
         }
     },
@@ -88,11 +88,60 @@
         "password": "1234",
         "paciente": {
             "id": 5,
+            "nombre": "Dalma",
+            "edad": 10,
+            "raza": "Caniche",
+            "especie": "Canino" ,
+            "sexo": "Hembra"
+        }
+    },
+    {
+        "id": 6,
+        "nombre": "Lisandro" ,
+        "apellido": "Baldoma",
+        "email": "baldomalisandro@hotmail.com",
+        "telefono": 3416864621,
+        "password": "1234",
+        "paciente": {
+            "id": 6,
+            "nombre": "Cesar",
+            "edad": 12,
+            "raza": "Pastor",
+            "especie": "Canino" ,
+            "sexo": "Macho"
+        }
+    },
+    {
+        "id": 7,
+        "nombre": "Florencia" ,
+        "apellido": "Tiberti",
+        "email": "flortiberti@hotmail.com",
+        "telefono": 341456758,
+        "password": "1234",
+        "paciente": {
+            "id": 7,
+            "nombre": "Zaira",
+            "edad": 4,
+            "raza": "Callejero",
+            "especie": "Felino" ,
+            "sexo": "Hembra"
+        }
+    },
+    {
+        "id": 8,
+        "nombre": "Facundo" ,
+        "apellido": "Caceres",
+        "email": "facundocaceres@hotmail.com",
+        "telefono": 3416687654,
+        "password": "1234",
+        "paciente": {
+            "id": 8,
             "nombre": "Negra",
             "edad": 10,
-            "raza": "Cocker",
+            "raza": "Buldog",
             "especie": "Canino" ,
             "sexo": "Hembra"
         }
     }
+   
 ]

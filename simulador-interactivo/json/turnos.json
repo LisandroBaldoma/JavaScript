@@ -2,34 +2,48 @@
     {       
     "id":0,
     "responsable": "Lisandro",
-    "paciente": "Zaira",
-    "tratamiento": "fisioterapia",
-    "fecha": "2022-12-12"  
+    "paciente": "Julian",
+    "tratamiento": "Fisioterapia",
+    "fecha": "2022-12-17"  
     },
 
     {     
         "id":1,
         "responsable": "Florencia",
-        "paciente": "Negra",
+        "paciente": "Messi",
         "tratamiento": "Lampara",
-        "fecha": "2022-12-12"      
+        "fecha": "2022-12-19"      
     },
     {       
     "id":2,
     "responsable": "Omar",
-    "paciente": "Aime",
+    "paciente": "Menoti",
     "tratamiento": "Psicologa",
-    "fecha": "2022-12-12"  
+    "fecha": "2022-12-18"  
     },
 
     {       
-        "id":3,
+        "id":4,
         "responsable": "Facundo",
         "paciente": "Zara",
         "tratamiento": "Radioterapia",
-        "fecha": "2022-12-12"      
-    }
-
+        "fecha": "2022-12-19"      
+    },{       
+        "id":5,
+        "responsable": "Lisandro",
+        "paciente": "Zaira",
+        "tratamiento": "Fisioterapia",
+        "fecha": "2022-12-16"  
+        },
+    
+        {     
+            "id":6,
+            "responsable": "Florencia",
+            "paciente": "Dalma",
+            "tratamiento": "Lampara",
+            "fecha": "2022-12-19"      
+        }
+       
 
 
 ]

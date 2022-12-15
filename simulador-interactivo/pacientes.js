@@ -25,8 +25,7 @@ const sectionLogin = document.getElementById("Login");
 const inputRecordarUsuario = document.getElementById("checkRecordarUsuario");
 
 if (usuario || inputRecordarUsuario.checked) {
-  let usuarios = JSON.parse(usuario);
-  console.log(usuarios);
+  let usuarios = JSON.parse(usuario);  
   renderMenu("menuApp", usuarios.nombre);
 } else {
   renderMenu("menuLogin");
@@ -37,10 +36,6 @@ const consultarDatos = async (tipo) => {
   return datos;
 };
 const formularioLogin = document.getElementById("formLogin");
-const inputPasword = document.getElementById("passwordLogin");
-const spanUsuario = document.getElementById("spanUsuario");
-const inputEmail = document.getElementById("emailLogin");
-
 formularioLogin.onsubmit = (e) => {
   e.preventDefault();
   inputEmail.onfocus = (e) => {
@@ -99,6 +94,10 @@ formularioLogin.onsubmit = (e) => {
     spanUsuario.innerHTML = "Ingrese un email valido xxx@xxx.xxx";
   }
 };
+const inputPasword = document.getElementById("passwordLogin");
+const spanUsuario = document.getElementById("spanUsuario");
+const inputEmail = document.getElementById("emailLogin");
+
 const formModalEditTurno = document.getElementById("formEditTurno");
 const datoTurno = document.getElementById("datosTurnos");
 const datosPaciente = document.getElementById("datosPacientes");
@@ -260,9 +259,11 @@ consultarDatos("turnos").then((turnos) => {
   const nombrePaciente = document.getElementById("nombrePaciente");
   const fechaTurno = document.getElementById("fechaTurno");
   const tratamientoTurno = document.getElementById("tratamientoTurno");
+  
   const nuevoNombre = document.getElementById("nuevoNombre");
   nuevoNombre.addEventListener("click", cambiarVista);
   const nuevaFecha = document.getElementById("nuevaFecha");
+  
   const bodyTurnos = document.getElementById("bodyTurnos");
   const btnEdit = document.getElementsByName("editar");
   const btnDeleted = document.getElementsByName("deleted");
@@ -277,14 +278,10 @@ consultarDatos("turnos").then((turnos) => {
 
   btnLimpiar.onclick = (e) => {
     selectTratamientos.classList.remove("is-invalid");
-
     nuevoNombre.classList.remove("is-invalid");
-
     nuevaFecha.classList.remove("is-invalid");
   };
-
-  btnAsignar.onclick = (e) => {
-    console.log(e.target.parentElement);
+  btnAsignar.onclick = (e) => {    
     if (selectTratamientos.value === "Seleccione un Tratamiento") {
       selectTratamientos.classList.add("is-invalid");
     } else if (nuevoNombre.value === "") {
@@ -373,7 +370,6 @@ consultarDatos("turnos").then((turnos) => {
   function mostrarTurnos(turnos) {
     bodyTurnos.innerHTML = "";
     turnos.forEach((turno) => {
-      //todosUsuarios.push(turno)
       bodyTurnos.innerHTML += `<tr id="turno${turno.id}">
         <th scope="row">${turno.id + 1}</th>
         <td>${turno.paciente}</td>
